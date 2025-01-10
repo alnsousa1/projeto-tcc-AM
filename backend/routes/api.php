@@ -9,6 +9,9 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 
 Route::group(['prefix' => 'v1'], function() {
 
+    Route::get('/teste', function () {
+        return response()->json('teste');
+    });
     
     Route::post('/login', [UserController::class, 'login'])->name('login')->middleware('throttle:3,5');
 
