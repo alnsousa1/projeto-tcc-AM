@@ -8,36 +8,9 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/var/www/html
+      - ./backend:/var/www
     environment:
       - APP_ENV=local
       - APP_DEBUG=true
       - APP_KEY=
-    depends_on:
-      - db
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: react-app
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/usr/src/app
-    stdin_open: true
-    tty: true
-
-  db:
-    image: mysql:8.0
-    container_name: mysql-db
-    ports:
-      - "3306:3306"
-    environment:
-     - MYSQL_DATABASE=laravel
-     - MYSQL_ROOT_PASSWORD=root
-    volumes:
-      - db_data:/var/lib/mysql
-
-volumes:
-  db_data:
+    command: bash -c "composer install && php artisan serve --host=0.0.0.0 --port=8000"
