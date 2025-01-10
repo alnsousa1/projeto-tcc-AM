@@ -28,6 +28,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy existing application directory contents
 COPY . /var/www
 
+# Instale dependências do projeto
+RUN composer install
+
 # Copy existing application directory permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
